@@ -3,8 +3,11 @@ package com.atguigu.lease.web.admin.controller.apartment;
 
 import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.model.entity.PaymentType;
+import com.atguigu.lease.web.admin.service.impl.PaymentTypeServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,10 +18,16 @@ import java.util.List;
 @RestController
 public class PaymentTypeController {
 
+    @Autowired
+    private PaymentTypeServiceImpl paymentTypeService;
+
     @Operation(summary = "查询全部支付方式列表")
     @GetMapping("list")
     public Result<List<PaymentType>> listPaymentType() {
-        return Result.ok();
+        LambdaQueryWrapper<PaymentType> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(PaymentType::getIsDeleted,0);
+        List<PaymentType> list = paymentTypeService.list(queryWrapper);
+        return Result.ok(list);
     }
 
     @Operation(summary = "保存或更新支付方式")
