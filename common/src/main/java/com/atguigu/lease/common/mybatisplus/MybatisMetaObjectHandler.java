@@ -2,6 +2,7 @@ package com.atguigu.lease.common.mybatisplus;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import java.util.Date;
  * Create: 2024/7/22-16:07
  * Description:用来配置crate_time和update_time的填充值
  */
+@Component
 public class MybatisMetaObjectHandler implements MetaObjectHandler {
 
 
