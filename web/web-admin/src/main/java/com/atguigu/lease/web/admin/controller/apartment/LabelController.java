@@ -26,8 +26,8 @@ public class LabelController {
     public Result<List<LabelInfo>> labelList(@RequestParam(required = false) ItemType type) {
         LambdaQueryWrapper<LabelInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(type!=null,LabelInfo::getType,type);
-        labelInfoService.list(queryWrapper);
-        return Result.ok();
+        List<LabelInfo> list = labelInfoService.list(queryWrapper);
+        return Result.ok(list);
     }
 
     @Operation(summary = "新增或修改标签信息")
