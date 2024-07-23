@@ -1,5 +1,6 @@
 package com.atguigu.lease.web.admin.custom.config;
 
+import com.atguigu.lease.web.admin.custom.converter.StringToBaseEnumConverterFactory;
 import com.atguigu.lease.web.admin.custom.converter.StringToItemTypeConverter;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +17,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Resource
-    private StringToItemTypeConverter converter;
+    private StringToBaseEnumConverterFactory converterFactory;
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(converter);
+        registry.addConverterFactory(converterFactory);
     }
 }
