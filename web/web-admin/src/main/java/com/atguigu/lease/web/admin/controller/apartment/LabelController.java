@@ -4,8 +4,11 @@ package com.atguigu.lease.web.admin.controller.apartment;
 import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.model.entity.LabelInfo;
 import com.atguigu.lease.model.enums.ItemType;
+import com.atguigu.lease.web.admin.service.impl.LabelInfoServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +18,15 @@ import java.util.List;
 @RequestMapping("/admin/label")
 public class LabelController {
 
+    @Autowired
+    private LabelInfoServiceImpl labelInfoService;
+
     @Operation(summary = "（根据类型）查询标签列表")
     @GetMapping("list")
     public Result<List<LabelInfo>> labelList(@RequestParam(required = false) ItemType type) {
+        LambdaQueryWrapper<LabelInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(type!=null,LabelInfo::getType,type);
+        labelInfoService.list(queryWrapper);
         return Result.ok();
     }
 
