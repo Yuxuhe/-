@@ -41,7 +41,8 @@ public class AttrController {
     @Operation(summary = "查询全部属性名称和属性值列表")
     @GetMapping("list")
     public Result<List<AttrKeyVo>> listAttrInfo() {
-        return Result.ok();
+        List<AttrKeyVo> vos = attrKeyService.listAttrInfo();
+        return Result.ok(vos);
     }
 
     @Operation(summary = "根据id删除属性名称")
