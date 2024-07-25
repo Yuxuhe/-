@@ -42,9 +42,9 @@ public class FileServiceImpl implements FileService {
             // 上传文件
             minioClient.putObject(PutObjectArgs.builder().bucket(properties.getBucketName()).
                     stream(file.getInputStream(), file.getSize(), -1).
-                    object(fileName).build());
+                    object(fileName).build()); // 将partsize设置成-1的话就会自动为我们分配合适的partsize
             // 返回url
-            return String.join("/",properties.getEndpoint(),properties.getBucketName()+fileName);
+            return String.join("/",properties.getEndpoint(),properties.getBucketName(),fileName);
         } catch (Exception e) {
             e.printStackTrace();
         }
