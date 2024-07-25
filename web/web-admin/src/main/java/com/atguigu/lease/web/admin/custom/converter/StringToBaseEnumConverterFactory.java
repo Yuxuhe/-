@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
  * PackageName: com.atguigu.lease.web.admin.custom.converter
  * Create: 2024/7/23-9:54
  * Description:统一定义code转枚举类的convertfactory，因为枚举类实现了BaseEnum
+ * @author Yuxuan
  */
 @Component
 public class StringToBaseEnumConverterFactory implements ConverterFactory<String, BaseEnum> {
