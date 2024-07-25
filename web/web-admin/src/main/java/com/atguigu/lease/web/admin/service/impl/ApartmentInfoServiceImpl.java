@@ -38,6 +38,7 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
 
     /**
      * 保存或更新公寓信息
+     *
      * @param apartmentSubmitVo
      */
     @Override
@@ -57,15 +58,15 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
             graphInfoService.remove(graphInfoQueryWrapper);
             // 2.删除配套
             LambdaQueryWrapper<ApartmentFacility> facilityInfoQueryWrapper = new LambdaQueryWrapper<>();
-            facilityInfoQueryWrapper.eq(ApartmentFacility::getApartmentId,apartmentSubmitVo.getId());
+            facilityInfoQueryWrapper.eq(ApartmentFacility::getApartmentId, apartmentSubmitVo.getId());
             facilityService.remove(facilityInfoQueryWrapper);
             // 3.删除标签
             LambdaQueryWrapper<ApartmentLabel> labelQueryWrapper = new LambdaQueryWrapper<>();
-            labelQueryWrapper.eq(ApartmentLabel::getApartmentId,apartmentSubmitVo.getId());
+            labelQueryWrapper.eq(ApartmentLabel::getApartmentId, apartmentSubmitVo.getId());
             labelService.remove(labelQueryWrapper);
             // 4.删除杂费
             LambdaQueryWrapper<ApartmentFeeValue> feeValueQueryWrapper = new LambdaQueryWrapper<>();
-            feeValueQueryWrapper.eq(ApartmentFeeValue::getApartmentId,apartmentSubmitVo.getId());
+            feeValueQueryWrapper.eq(ApartmentFeeValue::getApartmentId, apartmentSubmitVo.getId());
             feeValueService.remove(feeValueQueryWrapper);
         }
         // 1.插入图片列表
@@ -86,7 +87,7 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
         List<Long> facilityInfoIds = apartmentSubmitVo.getFacilityInfoIds();
         if (!CollectionUtils.isEmpty(facilityInfoIds)) {
             List<ApartmentFacility> apartmentFacilities = new ArrayList<>();
-            for (Long facilityInfoId :facilityInfoIds) {
+            for (Long facilityInfoId : facilityInfoIds) {
                 ApartmentFacility apartmentFacility = ApartmentFacility.builder().apartmentId(apartmentSubmitVo.getId())
                         .facilityId(facilityInfoId).build();
                 apartmentFacilities.add(apartmentFacility);
@@ -96,7 +97,7 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
 
         // 3.插入标签
         List<Long> labelIds = apartmentSubmitVo.getLabelIds();
-        if (!CollectionUtils.isEmpty(labelIds)){
+        if (!CollectionUtils.isEmpty(labelIds)) {
             List<ApartmentLabel> list = new ArrayList<>();
             for (Long labelId : labelIds) {
                 ApartmentLabel apartmentLabel = ApartmentLabel.builder().apartmentId(apartmentSubmitVo.getId())
@@ -107,7 +108,7 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
         }
         // 4.插入杂费
         List<Long> feeValueIds = apartmentSubmitVo.getFeeValueIds();
-        if (!CollectionUtils.isEmpty(feeValueIds)){
+        if (!CollectionUtils.isEmpty(feeValueIds)) {
             List<ApartmentFeeValue> list = new ArrayList<>();
             for (Long feeValueId : feeValueIds) {
                 ApartmentFeeValue apartmentFeeValue = ApartmentFeeValue.builder().apartmentId(apartmentSubmitVo.getId())
