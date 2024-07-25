@@ -1,4 +1,4 @@
-package com.atguigu.lease.common.com.atguigu.lease.common.exception;
+package com.atguigu.lease.common.exception;
 
 import com.atguigu.lease.common.result.Result;
 import org.springframework.web.bind.annotation.ControllerAdvice;
