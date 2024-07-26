@@ -2,6 +2,7 @@ package com.atguigu.lease.web.admin.controller.apartment;
 
 
 import com.atguigu.lease.common.result.Result;
+import com.atguigu.lease.web.admin.service.FileService;
 import com.atguigu.lease.web.admin.service.impl.FileServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class FileUploadController {
     @Resource
-    private FileServiceImpl fileService;
+    private FileService fileService;
 
     @Operation(summary = "上传文件")
     @PostMapping("upload")

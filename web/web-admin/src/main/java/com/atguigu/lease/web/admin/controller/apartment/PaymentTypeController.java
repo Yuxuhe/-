@@ -3,6 +3,7 @@ package com.atguigu.lease.web.admin.controller.apartment;
 
 import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.model.entity.PaymentType;
+import com.atguigu.lease.web.admin.service.PaymentTypeService;
 import com.atguigu.lease.web.admin.service.impl.PaymentTypeServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,7 +20,7 @@ import java.util.List;
 public class PaymentTypeController {
 
     @Autowired
-    private PaymentTypeServiceImpl paymentTypeService;
+    private PaymentTypeService paymentTypeService;
 
     @Operation(summary = "查询全部支付方式列表")
     @GetMapping("list")

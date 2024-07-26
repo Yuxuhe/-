@@ -4,6 +4,8 @@ package com.atguigu.lease.web.admin.controller.apartment;
 import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.model.entity.AttrKey;
 import com.atguigu.lease.model.entity.AttrValue;
+import com.atguigu.lease.web.admin.service.AttrKeyService;
+import com.atguigu.lease.web.admin.service.AttrValueService;
 import com.atguigu.lease.web.admin.service.impl.AttrKeyServiceImpl;
 import com.atguigu.lease.web.admin.service.impl.AttrValueServiceImpl;
 import com.atguigu.lease.web.admin.vo.attr.AttrKeyVo;
@@ -21,9 +23,9 @@ import java.util.List;
 @RequestMapping("/admin/attr")
 public class AttrController {
     @Resource
-    private AttrKeyServiceImpl attrKeyService;
+    private AttrKeyService attrKeyService;
     @Resource
-    private AttrValueServiceImpl attrValueService;
+    private AttrValueService attrValueService;
     @Operation(summary = "新增或更新属性名称")
     @PostMapping("key/saveOrUpdate")
     public Result saveOrUpdateAttrKey(@RequestBody AttrKey attrKey) {

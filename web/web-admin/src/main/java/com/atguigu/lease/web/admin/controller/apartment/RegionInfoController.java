@@ -5,6 +5,9 @@ import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.model.entity.CityInfo;
 import com.atguigu.lease.model.entity.DistrictInfo;
 import com.atguigu.lease.model.entity.ProvinceInfo;
+import com.atguigu.lease.web.admin.service.CityInfoService;
+import com.atguigu.lease.web.admin.service.DistrictInfoService;
+import com.atguigu.lease.web.admin.service.ProvinceInfoService;
 import com.atguigu.lease.web.admin.service.impl.CityInfoServiceImpl;
 import com.atguigu.lease.web.admin.service.impl.DistrictInfoServiceImpl;
 import com.atguigu.lease.web.admin.service.impl.ProvinceInfoServiceImpl;
@@ -25,13 +28,13 @@ import java.util.List;
 public class RegionInfoController {
 
     @Resource
-    private ProvinceInfoServiceImpl provinceInfoService;
+    private ProvinceInfoService provinceInfoService;
 
     @Resource
-    private CityInfoServiceImpl cityInfoService;
+    private CityInfoService cityInfoService;
 
     @Resource
-    private DistrictInfoServiceImpl districtInfoService;
+    private DistrictInfoService districtInfoService;
 
     @Operation(summary = "查询省份信息列表")
     @GetMapping("province/list")

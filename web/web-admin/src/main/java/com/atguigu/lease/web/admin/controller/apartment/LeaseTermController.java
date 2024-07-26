@@ -3,6 +3,7 @@ package com.atguigu.lease.web.admin.controller.apartment;
 
 import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.model.entity.LeaseTerm;
+import com.atguigu.lease.web.admin.service.LeaseTermService;
 import com.atguigu.lease.web.admin.service.impl.LeaseTermServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,7 +18,7 @@ import java.util.List;
 public class LeaseTermController {
 
     @Autowired
-    private LeaseTermServiceImpl leaseTermService;
+    private LeaseTermService leaseTermService;
 
     @GetMapping("list")
     @Operation(summary = "查询全部租期列表")

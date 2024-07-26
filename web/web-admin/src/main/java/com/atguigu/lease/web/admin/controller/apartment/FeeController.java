@@ -4,6 +4,8 @@ package com.atguigu.lease.web.admin.controller.apartment;
 import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.model.entity.FeeKey;
 import com.atguigu.lease.model.entity.FeeValue;
+import com.atguigu.lease.web.admin.service.FeeKeyService;
+import com.atguigu.lease.web.admin.service.FeeValueService;
 import com.atguigu.lease.web.admin.service.impl.FeeKeyServiceImpl;
 import com.atguigu.lease.web.admin.service.impl.FeeValueServiceImpl;
 import com.atguigu.lease.web.admin.vo.fee.FeeKeyVo;
@@ -22,10 +24,10 @@ import java.util.List;
 public class FeeController {
 
     @Resource
-    private FeeKeyServiceImpl feeKeyService;
+    private FeeKeyService feeKeyService;
 
     @Resource
-    private FeeValueServiceImpl feeValueService;
+    private FeeValueService feeValueService;
 
     @Operation(summary = "保存或更新杂费名称")
     @PostMapping("key/saveOrUpdate")

@@ -4,6 +4,7 @@ package com.atguigu.lease.web.admin.controller.apartment;
 import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.model.entity.LabelInfo;
 import com.atguigu.lease.model.enums.ItemType;
+import com.atguigu.lease.web.admin.service.LabelInfoService;
 import com.atguigu.lease.web.admin.service.impl.LabelInfoServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,7 +20,7 @@ import java.util.List;
 public class LabelController {
 
     @Autowired
-    private LabelInfoServiceImpl labelInfoService;
+    private LabelInfoService labelInfoService;
 
     @Operation(summary = "（根据类型）查询标签列表")
     @GetMapping("list")
