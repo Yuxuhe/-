@@ -1,6 +1,8 @@
 package com.atguigu.lease.web.admin.service.impl;
 
+import com.atguigu.lease.common.exception.LeaseException;
 import com.atguigu.lease.common.result.Result;
+import com.atguigu.lease.common.result.ResultCodeEnum;
 import com.atguigu.lease.model.entity.*;
 import com.atguigu.lease.model.enums.ItemType;
 import com.atguigu.lease.web.admin.mapper.*;
@@ -56,6 +58,9 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
 
     @Resource
     private FeeValueMapper feeValueMapper;
+
+    @Resource
+    private RoomInfoMapper roomInfoMapper;
 
     /**
      * 保存或更新公寓信息
@@ -152,7 +157,7 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
         ApartmentInfo apartmentInfo = this.getById(id);
 
         // 获取graphInfo的信息
-        List<GraphVo> graphVoListlist = graphInfoMapper.selectGraphVoById(ItemType.APARTMENT,id);
+        List<GraphVo> graphVoListlist = graphInfoMapper.selectGraphVoById(ItemType.APARTMENT, id);
 
         // 获取标签信息
         List<LabelInfo> labelInfoList = labelInfoMapper.selectLableInfoList(id);
@@ -165,13 +170,51 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
 
         // 组装对象
         ApartmentDetailVo apartmentDetailVo = new ApartmentDetailVo();
-        BeanUtils.copyProperties(apartmentInfo,apartmentDetailVo);
+        BeanUtils.copyProperties(apartmentInfo, apartmentDetailVo);
         apartmentDetailVo.setFacilityInfoList(facilityInfoList);
         apartmentDetailVo.setGraphVoList(graphVoListlist);
         apartmentDetailVo.setLabelInfoList(labelInfoList);
         apartmentDetailVo.setFeeValueVoList(feeValueVoList);
 
         return apartmentDetailVo;
+
+    }
+
+    /**
+     * 根据id删除公寓信息
+     */
+    @Override
+    public void removeApartmentById(Long id) {
+        // 在执行删除操作前，要先判断该公寓是否有房间，有房间的话就不能删除了
+        LambdaQueryWrapper<RoomInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(RoomInfo::getApartmentId,id);
+        Long count = roomInfoMapper.selectCount(queryWrapper);
+
+        if (count > 0){
+            throw new LeaseException(ResultCodeEnum.ADMIN_APARTMENT_DELETE_ERROR);
+        }
+
+        // 先删除apartmentInfo里面的相关字段
+        super.removeById(id);
+
+        // 1.删除图片
+        LambdaQueryWrapper<GraphInfo> graphInfoQueryWrapper = new LambdaQueryWrapper<>();
+        graphInfoQueryWrapper.eq(GraphInfo::getItemType, ItemType.APARTMENT);
+        graphInfoQueryWrapper.eq(GraphInfo::getItemId, id);
+        graphInfoService.remove(graphInfoQueryWrapper);
+        // 2.删除配套
+        LambdaQueryWrapper<ApartmentFacility> facilityInfoQueryWrapper = new LambdaQueryWrapper<>();
+        facilityInfoQueryWrapper.eq(ApartmentFacility::getApartmentId, id);
+        facilityService.remove(facilityInfoQueryWrapper);
+        // 3.删除标签
+        LambdaQueryWrapper<ApartmentLabel> labelQueryWrapper = new LambdaQueryWrapper<>();
+        labelQueryWrapper.eq(ApartmentLabel::getApartmentId, id);
+        labelService.remove(labelQueryWrapper);
+        // 4.删除杂费
+        LambdaQueryWrapper<ApartmentFeeValue> feeValueQueryWrapper = new LambdaQueryWrapper<>();
+        feeValueQueryWrapper.eq(ApartmentFeeValue::getApartmentId, id);
+        feeValueService.remove(feeValueQueryWrapper);
+
 
     }
 }

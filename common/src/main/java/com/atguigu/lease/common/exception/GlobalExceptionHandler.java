@@ -20,4 +20,10 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         return Result.fail();
     }
+
+    @ExceptionHandler(LeaseException.class)
+    @ResponseBody
+    public Result error(LeaseException leaseException){
+        return Result.fail(leaseException.getCode(), leaseException.getMessage());
+    }
 }
