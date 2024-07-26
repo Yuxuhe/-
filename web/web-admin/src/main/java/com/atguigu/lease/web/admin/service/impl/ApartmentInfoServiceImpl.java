@@ -128,7 +128,7 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
 
     @Override
     public IPage<ApartmentItemVo> pageItem(IPage<ApartmentItemVo> page, ApartmentQueryVo queryVo) {
-        return mapper.pageItem(page,queryVo);
+        return mapper.pageItem(page, queryVo);
     }
 }
 
