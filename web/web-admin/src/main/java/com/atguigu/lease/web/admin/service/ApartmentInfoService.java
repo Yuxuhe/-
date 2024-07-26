@@ -1,5 +1,6 @@
 package com.atguigu.lease.web.admin.service;
 
+import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.model.entity.ApartmentInfo;
 import com.atguigu.lease.web.admin.vo.apartment.ApartmentDetailVo;
 import com.atguigu.lease.web.admin.vo.apartment.ApartmentItemVo;
@@ -19,4 +20,6 @@ public interface ApartmentInfoService extends IService<ApartmentInfo> {
     void saveOrUpdateApartment(ApartmentSubmitVo apartmentSubmitVo);
 
     IPage<ApartmentItemVo> pageItem(IPage<ApartmentItemVo> page,ApartmentQueryVo queryVo);
+
+    ApartmentDetailVo getDetailById(Long id);
 }
