@@ -1,7 +1,10 @@
 package com.atguigu.lease.web.admin.service;
 
+import com.atguigu.lease.model.entity.LabelInfo;
 import com.atguigu.lease.model.entity.RoomLabel;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author liubo
@@ -9,5 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-07-24 15:48:00
 */
 public interface RoomLabelService extends IService<RoomLabel> {
+
 
 }

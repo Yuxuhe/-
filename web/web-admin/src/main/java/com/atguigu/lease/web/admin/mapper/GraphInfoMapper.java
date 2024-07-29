@@ -16,6 +16,7 @@ import java.util.List;
 public interface GraphInfoMapper extends BaseMapper<GraphInfo> {
 
     List<GraphVo> selectGraphVoById(ItemType itemType, Long id);
+
 }
 
 
