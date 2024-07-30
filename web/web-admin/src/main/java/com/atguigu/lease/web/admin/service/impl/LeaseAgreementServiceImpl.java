@@ -26,6 +26,12 @@ public class LeaseAgreementServiceImpl extends ServiceImpl<LeaseAgreementMapper,
     public IPage<AgreementVo> pageLease(IPage<AgreementVo> agreementVoPage, AgreementQueryVo queryVo) {
         return leaseAgreementMapper.pageLease(agreementVoPage,queryVo);
     }
+
+    @Override
+    public AgreementVo getLeaseAgreementById(Long id) {
+
+        return leaseAgreementMapper.getLeaseAgreementById(id);
+    }
 }
 
 

@@ -16,6 +16,7 @@ public interface LeaseAgreementMapper extends BaseMapper<LeaseAgreement> {
 
     IPage<AgreementVo> pageLease(IPage<AgreementVo> agreementVoPage, AgreementQueryVo queryVo);
 
+    AgreementVo getLeaseAgreementById(Long id);
 }
 
 
