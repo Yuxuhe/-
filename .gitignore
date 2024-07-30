@@ -36,3 +36,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/web/web-admin/src/test/java/com/atguigu/lease/web/admin/schedule/ScheduledTasksTest.java
