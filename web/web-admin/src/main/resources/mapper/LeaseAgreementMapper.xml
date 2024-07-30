@@ -144,7 +144,7 @@
 
     </resultMap>
 
-    <select id="getLeaseAgreementById" resultType="com.atguigu.lease.web.admin.vo.agreement.AgreementVo">
+    <select id="getLeaseAgreementById" resultMap="AgreementVoMap2">
         select la.id,
                la.phone,
                la.name,
