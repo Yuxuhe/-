@@ -2,6 +2,7 @@ package com.atguigu.lease.common.minio;
 
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableConfigurationProperties(MinioProperties.class)
+@ConditionalOnProperty(name = "minio.endpoint") // 只有当这个参数有的时候，minioClient才会被配置
 public class MinioConfiguration {
     @Autowired
     private MinioProperties minioProperties;
