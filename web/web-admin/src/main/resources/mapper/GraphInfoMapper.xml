@@ -9,6 +9,7 @@
             from lease.graph_info
         where is_deleted = 0
         and item_type = #{itemType}
-        and id = #{id}
+        and item_id = #{id}
+
     </select>
 </mapper>

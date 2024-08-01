@@ -26,7 +26,7 @@ public class FileUploadController {
     @PostMapping("upload")
     public Result<String> upload(@RequestParam MultipartFile file) {
         String url = fileService.upload(file);
-        return Result.ok();
+        return Result.ok(url);
     }
 
 }
