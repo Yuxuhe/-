@@ -28,4 +28,19 @@
             </if>
         </where>
     </select>
+    <select id="selectOneUserInfo" resultType="com.atguigu.lease.model.entity.SystemUser">
+        select id,
+               username,
+               password,
+               name,
+               type,
+               phone,
+               avatar_url,
+               additional_info,
+               post_id,
+               status
+        from lease.system_user
+        where is_deleted = 0
+          and system_user.username = #{username}
+    </select>
 </mapper>
