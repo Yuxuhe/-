@@ -1,6 +1,7 @@
 package com.atguigu.lease.web.app.controller.login;
 
 
+import com.atguigu.lease.common.exception.LeaseException;
 import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.web.app.service.LoginService;
 import com.atguigu.lease.web.app.vo.user.LoginVo;
@@ -8,6 +9,8 @@ import com.atguigu.lease.web.app.vo.user.UserInfoVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "登录管理")
@@ -27,8 +30,9 @@ public class LoginController {
 
     @PostMapping("login")
     @Operation(summary = "登录")
-    public Result<String> login(@RequestBody LoginVo loginVo) {
-        return Result.ok();
+    public Result<String> login(@RequestBody @Valid LoginVo loginVo) {
+        String jwt = loginService.login(loginVo);
+        return Result.ok(jwt);
     }
 
     @GetMapping("info")

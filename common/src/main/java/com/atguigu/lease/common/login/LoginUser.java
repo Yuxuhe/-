@@ -12,4 +12,11 @@ import lombok.Data;
 public class LoginUser {
     private String userName;
     private Long userId;
+
+    public LoginUser(){}
+
+    public LoginUser(String userName, Long userId){
+        this.userName = userName;
+        this.userId = userId;
+    }
 }
