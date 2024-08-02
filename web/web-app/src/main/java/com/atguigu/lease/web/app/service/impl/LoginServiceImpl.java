@@ -14,6 +14,7 @@ import com.atguigu.lease.web.app.mapper.UserInfoMapper;
 import com.atguigu.lease.web.app.service.LoginService;
 import com.atguigu.lease.web.app.service.SmsService;
 import com.atguigu.lease.web.app.vo.user.LoginVo;
+import com.atguigu.lease.web.app.vo.user.UserInfoVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import jakarta.annotation.Resource;
@@ -82,5 +83,12 @@ public class LoginServiceImpl implements LoginService {
 
         }
         throw new LeaseException(ResultCodeEnum.APP_LOGIN_CODE_ERROR);
+    }
+
+    @Override
+    public UserInfoVo info(Long userId) {
+        UserInfo userInfo = userInfoMapper.selectById(userId);
+        UserInfoVo userInfoVo = new UserInfoVo(userInfo.getNickname(), userInfo.getAvatarUrl());
+        return userInfoVo;
     }
 }
