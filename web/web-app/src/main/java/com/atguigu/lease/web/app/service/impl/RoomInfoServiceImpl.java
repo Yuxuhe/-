@@ -1,9 +1,11 @@
 package com.atguigu.lease.web.app.service.impl;
 
+import com.atguigu.lease.common.login.LoginUserHolder;
 import com.atguigu.lease.model.entity.*;
 import com.atguigu.lease.model.enums.ItemType;
 import com.atguigu.lease.web.app.mapper.*;
 import com.atguigu.lease.web.app.service.ApartmentInfoService;
+import com.atguigu.lease.web.app.service.BrowsingHistoryService;
 import com.atguigu.lease.web.app.service.GraphInfoService;
 import com.atguigu.lease.web.app.service.RoomInfoService;
 import com.atguigu.lease.web.app.vo.apartment.ApartmentItemVo;
@@ -34,7 +36,6 @@ import java.util.List;
 @Slf4j
 public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         implements RoomInfoService {
-
     @Resource
     private RoomInfoMapper mapper;
     @Resource
@@ -53,6 +54,8 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
     private LeaseTermMapper leaseTermMapper;
     @Resource
     private FeeValueMapper feeValueMapper;
+    @Resource
+    private BrowsingHistoryService browsingHistoryService;
     @Override
     public IPage<RoomItemVo> pageItem(Page<RoomItemVo> page, RoomQueryVo queryVo) {
        return mapper.pageItem(page,queryVo);
@@ -97,6 +100,10 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         detailVo.setLeaseTermList(leaseTermList);
         detailVo.setPaymentTypeList(paymentTypeList);
         detailVo.setAttrValueVoList(attrValueVoList);
+
+        // 保存此次浏览历史
+        browsingHistoryService.saveOrUpdateHistory(LoginUserHolder.getLoginUser().getUserId(),id);
+
 
         return detailVo;
 
