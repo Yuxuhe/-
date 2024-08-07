@@ -77,7 +77,15 @@
         </where>
         
         <if test="queryVo.orderType != null">
-            order by ri.rent #{queryVo.orderType}
+            order by ri.rent
+            <choose>
+                <when test="queryVo.orderType == 'asc'">
+                    ASC
+                </when>
+                <otherwise>
+                    DESC
+                </otherwise>
+            </choose>
         </if>
     </select>
 

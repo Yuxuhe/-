@@ -1,5 +1,6 @@
 package com.atguigu.lease.web.admin.service.impl;
 
+import com.atguigu.lease.common.constant.RedisConstant;
 import com.atguigu.lease.model.entity.*;
 import com.atguigu.lease.model.enums.ItemType;
 import com.atguigu.lease.model.enums.ReleaseStatus;
@@ -17,6 +18,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -69,13 +71,16 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
     @Resource
     private LeaseTermMapper leaseTermMapper;
 
+    @Resource
+    private RedisTemplate<String,Object> stringObjectRedisTemplate;
+
 
     @Override
     public void saveOrUpdateRoom(RoomSubmitVo roomSubmitVo) {
         // 先判断是更新还是删除操作
         Long id = roomSubmitVo.getId();
         super.saveOrUpdate(roomSubmitVo);
-        if (id == null) {
+        if (id != null) {
             // 证明是更新操作，需要将原来的相关信息进行删除
 
             // 1.删除图片信息
@@ -108,6 +113,8 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
             LambdaQueryWrapper<RoomLeaseTerm> termQueryWrapper = new LambdaQueryWrapper<>();
             termQueryWrapper.eq(RoomLeaseTerm::getRoomId, roomSubmitVo.getId());
             roomLeaseTermService.remove(termQueryWrapper);
+
+            stringObjectRedisTemplate.delete(RedisConstant.APP_ROOM_PREFIX + id);
         }
 
         // 进行添加操作
@@ -263,6 +270,8 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
             LambdaQueryWrapper<RoomLeaseTerm> termQueryWrapper = new LambdaQueryWrapper<>();
             termQueryWrapper.eq(RoomLeaseTerm::getRoomId, id);
             roomLeaseTermService.remove(termQueryWrapper);
+
+            stringObjectRedisTemplate.delete(RedisConstant.APP_ROOM_PREFIX + id);
         }
 
     @Override
